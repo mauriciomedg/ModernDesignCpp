@@ -123,10 +123,66 @@ namespace
 
 		T* m_pointer;
 	};
+
+
+	//////
+	// Test if T can be converted on U
+	//////
+	template <class T, class U>
+	class Conversion
+	{
+		typedef char Small;
+		class Big { char dummy[2]; };
+
+		static Small Test(const U&);
+		static Big Test(...);
+		static T MakeT(); // for any case the T define a private constructor
+
+	public:
+		enum { exist = sizeof(Test(MakeT())) == sizeof(Small) };
+		enum { sameType = false};
+	};
+
+	template <class T>
+	class Conversion<T, T>
+	{
+	public:
+		enum { exist = 1, sameType = 1 };
+	};
+
+	template <class T, class U>
+	bool superSubClass()
+	{
+		return Conversion<const U*, const T*>::exist;
+	}
+
+	void testingConvertion()
+	{
+		std::cout << Conversion<double, int>::exist << std::endl;
+		std::cout << Conversion<int, double>::exist << std::endl;
+		std::cout << Conversion<char*, double>::exist << std::endl;
+
+		class Base {
+			virtual void dummy() {}
+		};
+
+		class Derived : public Base {
+		public:
+			void display() {
+				std::cout << "Derived class" << std::endl;
+			}
+		};
+
+		std::cout << Conversion<Derived, Base>::exist << std::endl;
+		std::cout << superSubClass<Base, Derived>() << std::endl;
+		
+	}
 }
 
 int main()
 {
+	testingConvertion();
+
 	// the client needs to specify the type widget to the widget manager
 	WidgetManagerSimple<OpNewCreator<Widget>> widgetManagerSimple;
 
