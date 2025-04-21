@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../EffectiveCplus/SmartPointers.h"
-#include "../EffectiveCplus/Fabrics.h"
+#include "../EffectiveCplus/LoadShapes.h"
 
 class A
 {
@@ -42,7 +42,9 @@ struct Widget
 
 int main()
 {
-	UseFabric();
+	LoadShapes managerShapes;
+	managerShapes.FastLoadShape(1);
+	managerShapes.saveAllShapes();
 
 	runSmart();
 	Widget w;

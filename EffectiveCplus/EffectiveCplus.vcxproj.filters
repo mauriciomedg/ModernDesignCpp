@@ -26,5 +26,8 @@
     <ClInclude Include="Fabrics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LoadShapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

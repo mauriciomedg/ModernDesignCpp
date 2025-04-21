@@ -57,52 +57,14 @@ private:
 
 namespace
 {
-	enum class ShapeType
-	{
-		Square = 1,
-		Circle = 2
-	};
-
-	class Shape
-	{
-	public:
-		virtual void Draw() = 0;
-
-		virtual ~Shape()
-		{
-			std::cout << "shape deleted\n";
-		}
-	};
-
-	class Square : public Shape
-	{
-	public:
-		virtual void Draw()
-		{
-			std::cout << "drawing Square with unique ptr\n";
-		}
-	};
-
-	struct SquareRegister
-	{
-		SquareRegister()
-		{
-			using FactoryForShape = Factory<Shape, int, std::function<std::unique_ptr<Shape>()>>;
-
-			FactoryForShape::GetInstance().Register(static_cast<int>(ShapeType::Square), []()->std::unique_ptr<Shape> {
-				return std::make_unique<Square>();
-				});
-		}
-	};
-
-	static SquareRegister registerSquare;
-
-	void UseFabric()
-	{
-		using FactoryForShape = Factory<Shape, int, std::function<std::unique_ptr<Shape>()>>;
-		auto obj = FactoryForShape::GetInstance().CreateObject(1);
 	
-		obj->Draw();
-		obj->Draw();
-	}
+
+	//void UseFabric()
+	//{
+	//	using FactoryForShape = Factory<Shape, int, std::function<std::unique_ptr<Shape>()>>;
+	//	auto obj = FactoryForShape::GetInstance().CreateObject(1);
+	//
+	//	obj->Draw();
+	//	obj->Draw();
+	//}
 }
